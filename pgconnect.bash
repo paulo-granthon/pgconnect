@@ -59,7 +59,7 @@ function watch_query() {
 		DB_NAME_OR_EMPTY="-d ${!VAR_NAME_DB_NAME}"
 	fi
 
-	watch -etn 1 "PGPASS=${!VAR_NAME_DB_PASS} psql -h ${!VAR_NAME_DB_HOST} -U ${!VAR_NAME_DB_USER} -p ${!VAR_NAME_DB_PORT} ${DB_NAME_OR_EMPTY} -c '$query'"
+	watch -etn 1 "PGPASSWORD=${!VAR_NAME_DB_PASS} psql -h ${!VAR_NAME_DB_HOST} -U ${!VAR_NAME_DB_USER} -p ${!VAR_NAME_DB_PORT} ${DB_NAME_OR_EMPTY} -c '$query'"
 	clear
 }
 
@@ -76,7 +76,7 @@ function execute_query_once() {
 		DB_NAME_OR_EMPTY="-d ${!VAR_NAME_DB_NAME}"
 	fi
 
-	PGPASS="${!VAR_NAME_DB_PASS}" psql -h "${!VAR_NAME_DB_HOST}" -U "${!VAR_NAME_DB_USER}" -p "${!VAR_NAME_DB_PORT}" "${DB_NAME_OR_EMPTY}" -c "$query"
+	PGPASSWORD="${!VAR_NAME_DB_PASS}" psql -h "${!VAR_NAME_DB_HOST}" -U "${!VAR_NAME_DB_USER}" -p "${!VAR_NAME_DB_PORT}" "${DB_NAME_OR_EMPTY}" -c "$query"
 }
 
 # Function to execute a SQL script file
@@ -96,7 +96,7 @@ function execute_sql_script_file() {
 
 	echo "Executing SQL script file: ${script_file}"
 
-	PGPASS="${!VAR_NAME_DB_PASS}" psql -h "${!VAR_NAME_DB_HOST}" -U "${!VAR_NAME_DB_USER}" -p "${!VAR_NAME_DB_PORT}" "${DB_NAME_OR_EMPTY}" -f "$script_file"
+	PGPASSWORD="${!VAR_NAME_DB_PASS}" psql -h "${!VAR_NAME_DB_HOST}" -U "${!VAR_NAME_DB_USER}" -p "${!VAR_NAME_DB_PORT}" "${DB_NAME_OR_EMPTY}" -f "$script_file"
 }
 
 # Connect to the database using pgcli
