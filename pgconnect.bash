@@ -117,6 +117,7 @@ WAS_ENV_FILE_PASSED=false
 # This will be used to determine which function to execute
 # or if the script should just connect to the database
 COMMAND_FLAG=''
+COMMAND_FLAG_VALUE=''
 
 # parse arguments
 for arg in "$@"; do
@@ -141,12 +142,18 @@ for arg in "$@"; do
 		;;
 	"--watch" | "-w")
 		COMMAND_FLAG="$arg"
+		COMMAND_FLAG_VALUE="$2"
+		shift
 		;;
 	"--query" | "-q")
 		COMMAND_FLAG="$arg"
+		COMMAND_FLAG_VALUE="$2"
+		shift
 		;;
 	"--script" | "-s")
 		COMMAND_FLAG="$arg"
+		COMMAND_FLAG_VALUE="$2"
+		shift
 		;;
 	esac
 done
@@ -191,15 +198,15 @@ fi
 # match the flag and execute the corresponding function
 case "$COMMAND_FLAG" in
 "--watch" | "-w")
-	query=${2:-"show databases"}
+	query=${COMMAND_FLAG_VALUE:-"show databases"}
 	watch_query "${query}"
 	;;
 "--query" | "-q")
-	query=${2:-"show databases"}
+	query=${COMMAND_FLAG_VALUE:-"show databases"}
 	execute_query_once "${query}"
 	;;
 "--script" | "-s")
-	execute_sql_script_file "$2"
+	execute_sql_script_file "${COMMAND_FLAG_VALUE}"
 	;;
 *)
 	# If no specific flag is provided, execute pgcli command
