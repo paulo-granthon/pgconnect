@@ -49,7 +49,44 @@ terminal history each time you need to interact with your database.
   Just specify the path to the script file using the `--script` (or `-s`) option
   followed by the path to the script file and let `PGConnect` do the rest.
 
-## Usage
+## Installation, Setup, and Usage
+
+To use PGConnect, clone the repository or download the script file directly.
+
+It's strongly recommended to place the script in the same directory as your
+project or in a directory that is included in your system's PATH.
+
+```bash
+git clone https://github.com/paulo-granthon/pgconnect
+```
+
+If you include it in your PATH, you can use it from any directory without
+specifying the full path to the script.
+
+```bash
+export PATH=$PATH:/path/to/pgconnect
+```
+
+By creating an alias, you can also use a shorter command to run the script. Example:
+
+```bash
+alias pgc="/path/to/pgconnect/pgconnect.sh"
+```
+
+This will allow you to run the script using the `pgc` command. Example:
+
+```bash
+pgc -e .env -q "SELECT * FROM table_name"
+```
+
+Or by including the script in the root directory of the project in which you
+want to use it, you can run it directly from the project directory. Example:
+
+```bash
+./pgconnect.sh -e .env -q "SELECT * FROM table_name"
+```
+
+## Commands, Advanced Usage, and Examples
 
 To use PGConnect, simply run the script with appropriate options and arguments.
 Below are some common usage examples:
