@@ -153,8 +153,10 @@ Below are some common usage examples:
 
 ## Requirements
 
-- **PostgreSQL Client**: Ensure `psql` is installed and accessible in your environment.
 - **Bash Shell**: The script is written in Bash and requires a compatible shell environment.
+- [`psql`](https://www.postgresql.org/docs/current/app-psql.html): PostgreSQL
+interactive terminal.
+- [`pgcli`](https://www.pgcli.com/): PostgreSQL command-line interface.
 
 ## Configuration
 
@@ -197,13 +199,6 @@ make sure to overwrite the default variable names if you use different ones.
 
 - **Security**: Exercise caution when handling sensitive information such as
 database credentials. Sensitive data may be exposed if not handled securely.
-
-- **Dependency**: Ensure the availability of the PostgreSQL client utilities
-in your environment:
-
-  - [`psql`](https://www.postgresql.org/docs/current/app-psql.html): PostgreSQL
-  interactive terminal.
-  - [`pgcli`](https://www.pgcli.com/): PostgreSQL command-line interface.
 
 - **Compatibility**: The script is designed to work with Bash shell environments.
 Ensure compatibility with your shell environment.
