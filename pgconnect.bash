@@ -84,7 +84,7 @@ function execute_sql_script_file() {
 	script_file=${1}
 
 	if [ ! -f "${script_file}" ]; then
-		echo "File ${script_file} does not exist."
+		echo "File \`${script_file}\` does not exist."
 		echo -e "Usage: $0 <db_index> --script <script_file>"
 		exit 1
 	fi
@@ -167,6 +167,8 @@ fi
 
 # if there's a value in ENV_FILE, source the corresponding file.
 if [ -n "$ENV_FILE" ]; then
+	echo "Sourcing environment file: $ENV_FILE"
+
 	# shellcheck disable=SC1090
 	source "$ENV_FILE"
 fi
