@@ -120,39 +120,61 @@ COMMAND_FLAG=''
 COMMAND_FLAG_VALUE=''
 
 # parse arguments
-for arg in "$@"; do
+for ((i = 0; i <= $#; i++)); do
+	arg="${!i}"
+
+	next_index=$((i + 1))
+
+	if [ "$next_index" -le "$#" ]; then
+		next_arg="${!next_index}"
+	else
+		next_arg=""
+	fi
+
 	case "$arg" in
 	"--user" | "--username" | "-u")
-		WAS_VAR_NAME_DB_USER=true; VAR_NAME_DB_USER="$2"; shift;
+		WAS_VAR_NAME_DB_USER=true
+		VAR_NAME_DB_USER="${next_arg}"
+		shift
 		;;
 	"--pass" | "--password" | "-a")
-		WAS_VAR_NAME_DB_PASS=true; VAR_NAME_DB_PASS="$2"; shift;
+		WAS_VAR_NAME_DB_PASS=true
+		VAR_NAME_DB_PASS="${next_arg}"
+		shift
 		;;
 	"--host" | "--hostname" | "-h")
-		WAS_VAR_NAME_DB_HOST=true; VAR_NAME_DB_HOST="$2"; shift;
+		WAS_VAR_NAME_DB_HOST=true
+		VAR_NAME_DB_HOST="${next_arg}"
+		shift
 		;;
 	"--name" | "-n")
-		WAS_VAR_NAME_DB_NAME=true; VAR_NAME_DB_NAME="$2"; shift;
+		WAS_VAR_NAME_DB_NAME=true
+		VAR_NAME_DB_NAME="${next_arg}"
+		shift
 		;;
 	"--port" | "-p")
-		WAS_VAR_NAME_DB_PORT=true; VAR_NAME_DB_PORT="$2"; shift;
+		WAS_VAR_NAME_DB_PORT=true
+		VAR_NAME_DB_PORT="${next_arg}"
+		shift
 		;;
 	"--env" | "-e")
-		WAS_ENV_FILE_PASSED=true; ENV_FILE="$2"; shift;
+		WAS_ENV_FILE_PASSED=true
+		ENV_FILE="${next_arg}"
+		shift
 		;;
 	"--watch" | "-w")
 		COMMAND_FLAG="$arg"
-		COMMAND_FLAG_VALUE="$2"
+		COMMAND_FLAG_VALUE="${next_arg}"
 		shift
 		;;
 	"--query" | "-q")
 		COMMAND_FLAG="$arg"
-		COMMAND_FLAG_VALUE="$2"
+		COMMAND_FLAG_VALUE="${next_arg}"
 		shift
 		;;
 	"--script" | "-s")
 		COMMAND_FLAG="$arg"
-		COMMAND_FLAG_VALUE="$2"
+		COMMAND_FLAG_VALUE="${next_arg}"
 		shift
 		;;
 	esac
