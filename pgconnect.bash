@@ -106,11 +106,11 @@ function connect_to_database() {
 }
 
 ### Main script starts here ###
-WAS_VAR_NAME_DB_USER=false
-WAS_VAR_NAME_DB_PASS=false
-WAS_VAR_NAME_DB_HOST=false
-WAS_VAR_NAME_DB_NAME=false
-WAS_VAR_NAME_DB_PORT=false
+WAS_VAR_NAME_DB_USER_PASSED=false
+WAS_VAR_NAME_DB_PASS_PASSED=false
+WAS_VAR_NAME_DB_HOST_PASSED=false
+WAS_VAR_NAME_DB_NAME_PASSED=false
+WAS_VAR_NAME_DB_PORT_PASSED=false
 WAS_ENV_FILE_PASSED=false
 
 # capture the command flag.
@@ -133,27 +133,27 @@ for ((i = 0; i <= $#; i++)); do
 
 	case "$arg" in
 	"--user" | "--username" | "-u")
-		WAS_VAR_NAME_DB_USER=true
+		WAS_VAR_NAME_DB_USER_PASSED=true
 		VAR_NAME_DB_USER="${next_arg}"
 		shift
 		;;
 	"--pass" | "--password" | "-a")
-		WAS_VAR_NAME_DB_PASS=true
+		WAS_VAR_NAME_DB_PASS_PASSED=true
 		VAR_NAME_DB_PASS="${next_arg}"
 		shift
 		;;
 	"--host" | "--hostname" | "-h")
-		WAS_VAR_NAME_DB_HOST=true
+		WAS_VAR_NAME_DB_HOST_PASSED=true
 		VAR_NAME_DB_HOST="${next_arg}"
 		shift
 		;;
 	"--name" | "-n")
-		WAS_VAR_NAME_DB_NAME=true
+		WAS_VAR_NAME_DB_NAME_PASSED=true
 		VAR_NAME_DB_NAME="${next_arg}"
 		shift
 		;;
 	"--port" | "-p")
-		WAS_VAR_NAME_DB_PORT=true
+		WAS_VAR_NAME_DB_PORT_PASSED=true
 		VAR_NAME_DB_PORT="${next_arg}"
 		shift
 		;;
@@ -181,11 +181,11 @@ for ((i = 0; i <= $#; i++)); do
 done
 
 # set the default variable names if they were not passed
-if [ "$WAS_VAR_NAME_DB_USER" == false ]; then VAR_NAME_DB_USER="$DEFAULT_VAR_NAME_DB_USER"; fi
-if [ "$WAS_VAR_NAME_DB_PASS" == false ]; then VAR_NAME_DB_PASS="$DEFAULT_VAR_NAME_DB_PASS"; fi
-if [ "$WAS_VAR_NAME_DB_HOST" == false ]; then VAR_NAME_DB_HOST="$DEFAULT_VAR_NAME_DB_HOST"; fi
-if [ "$WAS_VAR_NAME_DB_NAME" == false ]; then VAR_NAME_DB_NAME="$DEFAULT_VAR_NAME_DB_NAME"; fi
-if [ "$WAS_VAR_NAME_DB_PORT" == false ]; then VAR_NAME_DB_PORT="$DEFAULT_VAR_NAME_DB_PORT"; fi
+if [ "$WAS_VAR_NAME_DB_USER_PASSED" == false ]; then VAR_NAME_DB_USER="$DEFAULT_VAR_NAME_DB_USER"; fi
+if [ "$WAS_VAR_NAME_DB_PASS_PASSED" == false ]; then VAR_NAME_DB_PASS="$DEFAULT_VAR_NAME_DB_PASS"; fi
+if [ "$WAS_VAR_NAME_DB_HOST_PASSED" == false ]; then VAR_NAME_DB_HOST="$DEFAULT_VAR_NAME_DB_HOST"; fi
+if [ "$WAS_VAR_NAME_DB_NAME_PASSED" == false ]; then VAR_NAME_DB_NAME="$DEFAULT_VAR_NAME_DB_NAME"; fi
+if [ "$WAS_VAR_NAME_DB_PORT_PASSED" == false ]; then VAR_NAME_DB_PORT="$DEFAULT_VAR_NAME_DB_PORT"; fi
 if [ "$WAS_ENV_FILE_PASSED" == false ]; then ENV_FILE="$DEFAULT_ENV_FILE"; fi
 
 # check if the environment file exists
