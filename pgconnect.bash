@@ -75,7 +75,7 @@ function execute_query_once() {
 
 	DB_NAME_OR_EMPTY=""
 	if [ -n "${!VAR_NAME_DB_NAME}" ]; then
-		DB_NAME_OR_EMPTY="-d ${!VAR_NAME_DB_NAME}"
+		DB_NAME_OR_EMPTY="-d${!VAR_NAME_DB_NAME}"
 	fi
 
 	PGPASSWORD="${!VAR_NAME_DB_PASS}" psql -h "${!VAR_NAME_DB_HOST}" -U "${!VAR_NAME_DB_USER}" -p "${!VAR_NAME_DB_PORT}" "${DB_NAME_OR_EMPTY}" -c "$query"
