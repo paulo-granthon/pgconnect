@@ -4,14 +4,16 @@
 set -eo pipefail
 
 # define variable defaults
-DEFAULT_VAR_NAME_DB_USER="DB_USER"
-DEFAULT_VAR_NAME_DB_PASS="DB_PASS"
-DEFAULT_VAR_NAME_DB_HOST="DB_HOST"
-DEFAULT_VAR_NAME_DB_NAME="DB_NAME"
-DEFAULT_VAR_NAME_DB_PORT="DB_PORT"
+DEFAULT_VAR_NAME_PREFIX="DB"
+DEFAULT_VAR_NAME_DB_USER="_USER"
+DEFAULT_VAR_NAME_DB_PASS="_PASS"
+DEFAULT_VAR_NAME_DB_HOST="_HOST"
+DEFAULT_VAR_NAME_DB_NAME="_NAME"
+DEFAULT_VAR_NAME_DB_PORT="_PORT"
 DEFAULT_ENV_FILE=".env"
 
 # Define the environment variables names
+VAR_NAME_PREFIX=""
 VAR_NAME_DB_USER=""
 VAR_NAME_DB_PASS=""
 VAR_NAME_DB_HOST=""
@@ -106,6 +108,7 @@ function connect_to_database() {
 }
 
 ### Main script starts here ###
+WAS_VAR_NAME_PREFIX_PASSED=false
 WAS_VAR_NAME_DB_USER_PASSED=false
 WAS_VAR_NAME_DB_PASS_PASSED=false
 WAS_VAR_NAME_DB_HOST_PASSED=false
@@ -157,6 +160,11 @@ for ((i = 0; i <= $#; i++)); do
 		VAR_NAME_DB_PORT="${next_arg}"
 		shift
 		;;
+    "--prefix" | "-x")
+        WAS_VAR_NAME_PREFIX_PASSED=true
+        VAR_NAME_PREFIX="${next_arg}"
+        shift
+        ;;
 	"--env" | "-e")
 		WAS_ENV_FILE_PASSED=true
 		ENV_FILE="${next_arg}"
@@ -181,12 +189,19 @@ for ((i = 0; i <= $#; i++)); do
 done
 
 # set the default variable names if they were not passed
+if [ "$WAS_VAR_NAME_PREFIX_PASSED" == false ]; then VAR_NAME_PREFIX="$DEFAULT_VAR_NAME_PREFIX"; fi
 if [ "$WAS_VAR_NAME_DB_USER_PASSED" == false ]; then VAR_NAME_DB_USER="$DEFAULT_VAR_NAME_DB_USER"; fi
 if [ "$WAS_VAR_NAME_DB_PASS_PASSED" == false ]; then VAR_NAME_DB_PASS="$DEFAULT_VAR_NAME_DB_PASS"; fi
 if [ "$WAS_VAR_NAME_DB_HOST_PASSED" == false ]; then VAR_NAME_DB_HOST="$DEFAULT_VAR_NAME_DB_HOST"; fi
 if [ "$WAS_VAR_NAME_DB_NAME_PASSED" == false ]; then VAR_NAME_DB_NAME="$DEFAULT_VAR_NAME_DB_NAME"; fi
 if [ "$WAS_VAR_NAME_DB_PORT_PASSED" == false ]; then VAR_NAME_DB_PORT="$DEFAULT_VAR_NAME_DB_PORT"; fi
 if [ "$WAS_ENV_FILE_PASSED" == false ]; then ENV_FILE="$DEFAULT_ENV_FILE"; fi
+
+VAR_NAME_DB_USER="${VAR_NAME_PREFIX}${VAR_NAME_DB_USER}"
+VAR_NAME_DB_PASS="${VAR_NAME_PREFIX}${VAR_NAME_DB_PASS}"
+VAR_NAME_DB_HOST="${VAR_NAME_PREFIX}${VAR_NAME_DB_HOST}"
+VAR_NAME_DB_NAME="${VAR_NAME_PREFIX}${VAR_NAME_DB_NAME}"
+VAR_NAME_DB_PORT="${VAR_NAME_PREFIX}${VAR_NAME_DB_PORT}"
 
 # check if the environment file exists
 if [ ! -f "$ENV_FILE" ]; then
