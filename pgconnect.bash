@@ -135,6 +135,19 @@ for ((i = 0; i <= $#; i++)); do
 	fi
 
 	case "$arg" in
+	"--update" | "-U")
+		SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+		echo "SCRIPT_PATH: $SCRIPT_PATH"
+
+		curl -s https://raw.githubusercontent.com/paulo-granthon/pgconnect/refs/heads/main/pgconnect.bash > "$SCRIPT_PATH"
+		chmod +x "$SCRIPT_PATH"
+		echo "PGConnect updated to the latest version."
+		exec "$SCRIPT_PATH" "$(for arg_to_propagate in "$@"; do
+			echo "$arg_to_propagate"
+			[[ ! " ${EXCLUDE_ARGS[*]} " =~ $arg_to_propagate ]] && echo "$arg_to_propagate"
+		done)"
+		exit 0
+		;;
 	"--user" | "--username" | "-u")
 		WAS_VAR_NAME_DB_USER_PASSED=true
 		VAR_NAME_DB_USER="${next_arg}"
