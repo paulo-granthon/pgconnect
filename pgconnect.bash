@@ -160,11 +160,11 @@ for ((i = 0; i <= $#; i++)); do
 		VAR_NAME_DB_PORT="${next_arg}"
 		shift
 		;;
-    "--prefix" | "-x")
-        WAS_VAR_NAME_PREFIX_PASSED=true
-        VAR_NAME_PREFIX="${next_arg}"
-        shift
-        ;;
+	"--prefix" | "-x")
+		WAS_VAR_NAME_PREFIX_PASSED=true
+		VAR_NAME_PREFIX="${next_arg}"
+		shift
+		;;
 	"--env" | "-e")
 		WAS_ENV_FILE_PASSED=true
 		ENV_FILE="${next_arg}"
