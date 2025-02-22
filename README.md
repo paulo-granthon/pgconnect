@@ -51,6 +51,17 @@ terminal history each time you need to interact with your database.
 
 ## Installation, Setup, and Usage
 
+### A. Download the script into $HOME/.local/bin and make it executable
+
+```bash
+curl \
+    https://raw.githubusercontent.com/paulo-granthon/pgconnect/refs/heads/main/pgconnect.bash \
+    -o $HOME/.local/bin/pgconnect \
+    && chmod +x $HOME/.local/bin/pgconnect
+```
+
+### B. Customize the installation
+
 To use PGConnect, clone the repository or download the script file directly.
 
 It's strongly recommended to place the script in the same directory as your
